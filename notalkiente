@@ -1,0 +1,128 @@
+import tkinter
+
+root = tkinter.Tk()
+oof = 1
+clicky = "up"
+xold, yold = None, None
+bcolor = "black"
+widthwoo = 1
+canvas = tkinter.Canvas(root, width=900, height=900, background='#FFFFFF')
+canvasb = tkinter.Canvas(root, width=900, height=900, background='#FFFFFF')
+canvas.grid(row=0, rowspan=2, column=2)
+canvasb.grid(row=1, rowspan=1, column=0)
+custom_color = "red"
+
+
+def clickydown(event):
+   global clicky
+   clicky = "down"
+
+
+def clickyup(event):
+   global clicky, xold, yold
+   clicky = "up"
+   xold = None
+   yold = None
+
+
+def motion(event):
+   if clicky == "down":
+       global xold, yold, bcolor, widthwoo
+       if xold is not None and yold is not None:
+           canvasb.create_line(xold, yold, event.x, event.y, fill=bcolor, smooth="true", width=widthwoo)
+       xold = event.x
+       yold = event.y
+
+
+def redcolor():
+   global bcolor
+   bcolor = "red"
+
+
+def bluecolor():
+   global bcolor
+   bcolor = "blue"
+
+
+def blackcolor():
+   global bcolor
+   bcolor = "black"
+
+
+def erasecolor():
+   global bcolor
+   bcolor = "white"
+
+
+def greencolor():
+   global bcolor
+   bcolor = "green"
+
+
+def yellowcolor():
+   global bcolor
+   bcolor = "yellow"
+
+
+def purplecolor():
+   global bcolor
+   bcolor = "purple"
+
+
+def browncolor():
+   global bcolor
+   bcolor = "brown"
+
+
+def smallerbrush():
+   global widthwoo
+   widthwoo -= 2
+
+
+def upbrush():
+   global widthwoo
+   widthwoo += 2
+
+
+def clearcanvas():
+   global canvasb
+   canvasb.delete("all")
+
+
+def canvass(event):
+   global canvas, canvasb
+   canvas = tkinter.Canvas(root, width=700, height=700, background='#FFFFFF')
+   canvas.grid(row=0, rowspan=2, column=2)
+   canvasb = tkinter.Canvas(root, width=300, height=300, background='#FFFFFF')
+   canvasb.grid(row=0, rowspan=2, column=1)
+
+
+width1 = tkinter.Button(canvas, text="Smaller ", command=smallerbrush)
+width1.pack(side="left")
+widthn = tkinter.Button(canvas, text="Bigger ", command=upbrush)
+widthn.pack(side="left")
+b = tkinter.Button(canvas, text="Red", command=redcolor)
+b.pack(side="left")
+bb = tkinter.Button(canvas, text="Blue", command=bluecolor)
+bb.pack(side="left")
+bbb = tkinter.Button(canvas, text="Black", command=blackcolor)
+bbb.pack(side="left")
+bbbb = tkinter.Button(canvas, text="Eraser", command=erasecolor)
+bbbb.pack(side="left")
+grb = tkinter.Button(canvas, text="Green", command=greencolor)
+grb.pack(side="left")
+yeb = tkinter.Button(canvas, text="Yellow", command=yellowcolor)
+yeb.pack(side="left")
+pub = tkinter.Button(canvas, text="Purple", command=purplecolor)
+pub.pack(side="left")
+brb = tkinter.Button(canvas, text="Brown", command=browncolor)
+brb.pack(side="left")
+clear = tkinter.Button(canvas, text="Clear", command=clearcanvas)
+clear.pack(side="left")
+root.bind("<Motion>", motion, canvass)
+root.bind("<ButtonPress-1>", clickydown)
+root.bind("<ButtonRelease-1>", clickyup)
+
+root.mainloop()
+
+
